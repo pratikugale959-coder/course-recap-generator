@@ -1,0 +1,6 @@
+# pdf_extractor MCP server dependencies (pinned at install time — Phase 3).
+# Official Model Context Protocol Python SDK (FastMCP + stdio transport).
+# Pin to the v1 line: mcp 2.x renamed FastMCP to MCPServer and changed APIs.
+mcp==1.30.0
+# Pure-Python PDF parsing (text, metadata, outline extraction).
+pypdf==6.19.0

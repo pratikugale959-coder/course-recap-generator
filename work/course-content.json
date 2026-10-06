@@ -1,0 +1,15 @@
+{
+  "file": "C:\\course-recap-generator\\input\\course.pdf",
+  "page_count": 2,
+  "metadata": { "title": "Test Course" },
+  "total_chars": 100,
+  "warnings": [],
+  "pages": [
+    { "page": 1, "char_count": 60, "text": "Module One covers agents and search." },
+    { "page": 2, "char_count": 40, "text": "Module Two covers knowledge representation." }
+  ],
+  "outline": [
+    { "title": "Module One: Agents", "page": 1, "depth": 0 },
+    { "title": "Module Two: Knowledge Representation", "page": 2, "depth": 0 }
+  ]
+}
