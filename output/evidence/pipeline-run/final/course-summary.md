@@ -113,7 +113,9 @@ example; complexity; completeness; optimality
   S→A→B→C→D→G→H→E→F→I→K (p. 10)
 - Time complexity O(b^d) and space complexity O(bd), where d is the
   depth of the shallowest solution and b is the branching factor
-  (p. 11)
+  (p. 11). *(The source text for this line is garbled — "b is a node
+  at every state", "O(bd)" — interpreted as branching factor b and
+  O(b^d), consistent with the extraction report.)*
 - BFS is complete if the shallowest goal node is at some finite
   depth; BFS is optimal if path cost is a non-decreasing function of
   the depth of the node (p. 11)

@@ -1,0 +1,27 @@
+LIVE MCP TOOL CALLS — captured 2026-10-07
+Invoked through the running OpenCode server (Code Mode:
+tools.pdf_extractor.extract_pdf_text / tools.pdf_extractor.get_pdf_outline)
+
+> extract_pdf_text({ path: "C:\Users\Sarthak\course-recap-generator\input\course.pdf" })
+{
+  "ok": true,
+  "page_count": 19,
+  "total_chars": 8386,
+  "warnings": [
+    "page 2: little or no extractable text (likely image-only/scanned)"
+  ],
+  "pages[0].text": "UNIT II\nIntroduction",
+  "pages[18].char_count": 519
+}
+
+> get_pdf_outline({ path: "C:\Users\Sarthak\course-recap-generator\input\course.pdf" })
+{
+  "ok": true,
+  "outline_entries": 19,
+  "first": { "title": "Slide 1", "page": 1, "depth": 0 },
+  "last":  { "title": "Slide 19", "page": 19, "depth": 0 }
+}
+
+Claim proven: both MCP tools perform genuine extraction work against the
+real input PDF (per-page text, metadata, scanned-page warning, bookmarks).
+Full extraction output is archived at pipeline-run/course-content.json.

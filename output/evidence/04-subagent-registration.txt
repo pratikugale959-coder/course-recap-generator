@@ -1,0 +1,42 @@
+SUB-AGENT REGISTRATION — captured 2026-10-07
+
+$ opencode api get "/api/agent?location[directory]=C:\Users\Sarthak\course-recap-generator"
+resolved location: C:\Users\Sarthak\course-recap-generator
+agent ids: build, general, explore, compaction, title, summary, plan, course-reviewer
+
+course-reviewer entry (project-defined custom sub-agent):
+{
+  "id": "course-reviewer",
+  "name": "course-reviewer",
+  "mode": "subagent",
+  "hidden": false,
+  "steps": 15,
+  "description": "Reviews generated course recap artifacts against the
+    extracted PDF source content — fidelity, coverage, diagram validity,
+    and format compliance",
+  "system": "You are the course-reviewer for the Course Recap Generator.
+    You are strictly read-only: never modify, write, or create any file.
+    [... full 4-check review protocol: FIDELITY / COVERAGE / DIAGRAM /
+    FORMAT, findings table, and final line 'VERDICT: PASS' or
+    'VERDICT: REVISE' — see config-snapshot/agents/course-reviewer.md ...]",
+  "permissions": [
+    { "action": "skill",     "resource": "course-recap",     "effect": "allow" },
+    { "action": "subagent",  "resource": "course-reviewer",  "effect": "allow" },
+    { "action": "read",      "resource": "*",                "effect": "allow" },
+    { "action": "browser",   "resource": "*",                "effect": "deny"  }
+    /* remaining entries are OpenCode's built-in defaults
+       applied to every agent (external_directory ask, env-file
+       rules, temp/tool-output access) */
+  ]
+}
+
+Claim proven: the harness exposes course-reviewer as a launchable
+sub-agent with its review protocol and read-oriented permission set.
+
+NOTE (free-tier limitation discovered during development): file-based
+agents carrying `deny` permission rules fail on the OpenCode Console
+free tier with "Error from provider (Console): OpenCode's free tier can
+only be used from within OpenCode". The shipped configuration therefore
+uses allow rules only; read-only enforcement lives in the agent's system
+prompt. See output/evidence/06-reviewer-session.txt for the successful
+launch produced by this configuration.

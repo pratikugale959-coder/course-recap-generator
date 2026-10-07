@@ -1,0 +1,38 @@
+MCP SERVER PROTOCOL TEST SUITE — captured 2026-10-07
+Command: .venv\Scripts\python tests/test_pdf_extractor.py
+
+The test boots the REAL server (mcp-servers/pdf-extractor/server.py) as a
+subprocess over the MCP stdio transport using the official MCP client SDK,
+then exercises both tools — including failure paths. Nothing is mocked.
+
+[PASS] server script exists — mcp-servers/pdf-extractor/server.py
+[PASS] fixture PDF exists — tests/fixtures/sample.pdf
+[PASS] tool advertised: extract_pdf_text — extract_pdf_text, get_pdf_outline
+[PASS] tool advertised: get_pdf_outline
+[PASS] extract_pdf_text succeeds on fixture — None
+[PASS] result ok=true
+[PASS] page_count > 0 — page_count=19
+[PASS] pages list non-empty
+[PASS] total_chars > 0 — total_chars=8386
+[PASS] metadata is a dict
+[PASS] every page has text
+[PASS] get_pdf_outline succeeds on fixture — None
+[PASS] result ok=true
+[PASS] outline is a list
+[PASS] missing file rejected — Error executing tool extract_pdf_text:
+       file not found: ...\does-not-exist.pdf
+[PASS] non-PDF rejected — Error executing tool extract_pdf_text:
+       not a PDF file: ...\opencode.jsonc
+[PASS] outside-project path rejected — Error executing tool extract_pdf_text:
+       access denied: ...\outside.pdf is out of the project directory
+
+17/17 checks passed
+ALL CHECKS PASSED
+TRUE NATIVE EXIT CODE: 0
+
+Note: the MCP client SDK logs "Processing request of type ..." lines to
+stderr; PowerShell wraps those as NativeCommandError noise in the console.
+The process itself exits 0, as shown by $LASTEXITCODE above.
+
+Claim proven: the server speaks the real MCP protocol (tool discovery,
+tool calls, error handling, project-directory safety boundary).

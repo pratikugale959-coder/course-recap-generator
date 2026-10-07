@@ -1,0 +1,33 @@
+SKILL REGISTRATION — captured 2026-10-07
+
+$ opencode api get "/api/skill?location[directory]=C:\Users\Sarthak\course-recap-generator"
+resolved location: C:\Users\Sarthak\course-recap-generator
+skill ids: opencode, report, course-recap
+
+course-recap entry (project-defined custom skill):
+{
+  "id": "course-recap",
+  "name": "Course Recap",
+  "path": "C:\\Users\\Sarthak\\course-recap-generator\\.opencode\\skills\\course-recap\\SKILL.md",
+  "description": "Generate a course recap — summary, key concepts, and a
+    Mermaid concept diagram — from structured PDF course content
+    extracted by the pdf_extractor MCP server"
+}
+content length: 2000 chars
+
+The skill directory also serves its templates and reference schema:
+  .opencode/skills/course-recap/
+  ├── SKILL.md                      (workflow: read extraction → write
+  │                                  3 draft artifacts → update manifest
+  │                                  → hand off to course-reviewer)
+  ├── templates/summary-template.md (course-summary.md structure)
+  ├── templates/diagram-guide.md    (Mermaid flowchart TD rules:
+  │                                  ≤15 nodes, kebab-case IDs,
+  │                                  labeled edges)
+  └── references/output-schema.md   (key-concepts.md table contract:
+                                     Concept | Definition | Source
+                                     page(s) | Why it matters)
+
+Claim proven: the running OpenCode server discovers and serves the
+custom course-recap skill with its full content. The skill was loaded
+for real during the Phase 6 pipeline run (see pipeline-run/).

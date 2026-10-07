@@ -1,0 +1,37 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Course Recap Generator — OpenCode project configuration (OpenCode V2).
+  // MCP server entry: the server implementation arrives in Phase 3.
+  // Until mcp-servers/pdf-extractor/server.py exists, `opencode mcp list`
+  // will show pdf_extractor as listed but not connected. That is expected.
+  "mcp": {
+    "servers": {
+      "pdf_extractor": {
+        "type": "local",
+        "command": [".venv\\Scripts\\python.exe", "mcp-servers\\pdf-extractor\\server.py"],
+        "cwd": ".",
+        "environment": {
+          "PYTHONUNBUFFERED": "1"
+        },
+        "timeout": {
+          "startup": 45000,
+          "execution": 300000
+        }
+      }
+    }
+  },
+  // Permissions: allow the course-recap skill (Phase 4) and the
+  // course-reviewer sub-agent (defined file-based in Phase 5).
+  "permissions": [
+    {
+      "action": "skill",
+      "resource": "course-recap",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "course-reviewer",
+      "effect": "allow"
+    }
+  ]
+}

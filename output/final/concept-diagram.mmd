@@ -1,0 +1,26 @@
+flowchart TD
+    search["Search"]
+    search-problem-factors["Search Problem Factors"]
+    completeness["Completeness"]
+    optimality["Optimality"]
+    time-space-complexity["Time & Space Complexity"]
+    uninformed-search["Uninformed / Blind Search"]
+    informed-search["Informed / Heuristic Search"]
+    breadth-first-search["Breadth-First Search"]
+    depth-first-search["Depth-First Search"]
+    uniform-cost-search["Uniform-Cost Search"]
+    greedy-search["Greedy Search"]
+    a-star-search["A* Search"]
+
+    search -->|"defined by"| search-problem-factors
+    search -->|"evaluated by"| completeness
+    search -->|"evaluated by"| optimality
+    search -->|"evaluated by"| time-space-complexity
+    search -->|"divided into"| uninformed-search
+    search -->|"divided into"| informed-search
+    uninformed-search -->|"includes"| breadth-first-search
+    uninformed-search -->|"includes"| depth-first-search
+    uninformed-search -->|"includes"| uniform-cost-search
+    informed-search -->|"includes"| greedy-search
+    informed-search -->|"includes"| a-star-search
+    uniform-cost-search -->|"equivalent to (same edge costs)"| breadth-first-search

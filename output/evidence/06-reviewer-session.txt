@@ -1,0 +1,43 @@
+REVIEWER SUB-AGENT LAUNCH — captured 2026-10-07
+
+$ opencode api get "/api/session?location[directory]=C:\Users\Sarthak\course-recap-generator"
+
+Main session (pipeline owner):
+{
+  "id": "ses_eed6a4dacffeAa7j6EKJBIu1d5",
+  "agent": "build",
+  "model": { "id": "ling-3.1-flash-free", "providerID": "opencode" },
+  "outcome": "succeeded",
+  "title": "Course Recap Generator implementation plan",
+  "location": { "directory": "C:\\Users\\Sarthak\\course-recap-generator" }
+}
+
+Reviewer child session (launched by the main agent during the Phase 6 run):
+{
+  "id": "ses_ee9a7746effe46yT4Y8LwrnXat",
+  "parentID": "ses_eed6a4dacffeAa7j6EKJBIu1d5",
+  "agent": "course-reviewer",
+  "model": { "id": "ling-3.1-flash-free", "providerID": "opencode", "variant": "default" },
+  "outcome": "succeeded",
+  "title": "Review real draft recap",
+  "tokens": { "input": 18798, "output": 927, "reasoning": 9282,
+              "cache": { "read": 37568 } }
+}
+
+The child session executed the real 4-check review protocol against the
+draft artifacts and returned findings R1/R2 (major) + R3 (minor) with
+final line "VERDICT: REVISE" — archived at pipeline-run/review.md.
+The main agent then applied exactly one correction pass (corrections
+C1–C3, archived at pipeline-run/run-report.md). The reviewer was NOT
+launched a second time — the pipeline stopped after the single revision
+pass, per AGENTS.md (no loop).
+
+Development record (why earlier launches failed — for transparency):
+- Several Phase 5 launch attempts failed with "Error from provider
+  (Console): OpenCode's free tier can only be used from within
+  OpenCode" — caused by `deny` permission rules in the agent file.
+- One attempt failed with a transient provider rate limit
+  ("Rate limit exceeded. Please try again later.").
+- After removing deny rules (allow rules only, read-only behavior
+  enforced by the system prompt), the launch above succeeded and the
+  reviewer completed its review.

@@ -1,0 +1,19 @@
+OPENCODE ENVIRONMENT — captured 2026-10-07
+
+$ opencode --version
+opencode v2.0.24
+
+$ opencode api get /api/info
+{"version":"2.0.24","pid":15124,"urls":["http://127.0.0.1:49374"],
+ "paths":{"tmp":"C:\\Users\\Sarthak\\AppData\\Local\\Temp\\opencode"},
+ "capabilities":{"persistentPty":false}}
+
+$ opencode mcp list
+✓ pdf_extractor  connected
+
+$ opencode api get "/api/mcp?location[directory]=C:\Users\Sarthak\course-recap-generator"
+{"location":{"directory":"C:\\Users\\Sarthak\\course-recap-generator"},
+ "data":[{"name":"pdf_extractor","status":{"status":"connected"}}]}
+
+Claim proven: the pdf_extractor MCP server is declared in opencode.jsonc
+and is connected to the running OpenCode service for this project.

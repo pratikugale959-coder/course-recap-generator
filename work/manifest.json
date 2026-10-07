@@ -1,0 +1,44 @@
+{
+  "pipeline": "course-recap-generator",
+  "source_pdf": "input/course.pdf",
+  "run_date": "2026-10-07",
+  "stages": {
+    "extract": {
+      "status": "done",
+      "tools": ["pdf_extractor.extract_pdf_text", "pdf_extractor.get_pdf_outline"],
+      "result": { "page_count": 19, "total_chars": 8386, "warnings": 1 },
+      "artifacts": ["work/course-content.json", "work/extraction-report.txt"]
+    },
+    "draft": {
+      "status": "done",
+      "skill": "course-recap",
+      "artifacts": [
+        "output/draft/course-summary.md",
+        "output/draft/key-concepts.md",
+        "output/draft/concept-diagram.mmd"
+      ]
+    },
+    "review": {
+      "status": "done",
+      "agent": "course-reviewer",
+      "launches": 1,
+      "verdict": "REVISE",
+      "findings": { "major": 2, "minor": 1 },
+      "artifacts": ["output/review.md"]
+    },
+    "revise": {
+      "status": "done",
+      "passes": 1,
+      "corrections": ["C1 (R1)", "C2 (R2)", "C3 (R3)"],
+      "artifacts": [
+        "output/final/course-summary.md",
+        "output/final/key-concepts.md",
+        "output/final/concept-diagram.mmd"
+      ]
+    },
+    "report": {
+      "status": "done",
+      "artifacts": ["output/review.md", "output/run-report.md"]
+    }
+  }
+}
