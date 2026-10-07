@@ -2,11 +2,12 @@
   "pipeline": "course-recap-generator",
   "source_pdf": "input/course.pdf",
   "run_date": "2026-10-07",
+  "run": 2,
   "stages": {
     "extract": {
       "status": "done",
       "tools": ["pdf_extractor.extract_pdf_text", "pdf_extractor.get_pdf_outline"],
-      "result": { "page_count": 19, "total_chars": 8386, "warnings": 1 },
+      "result": { "page_count": 3, "total_chars": 4564, "outline_entries": 10, "warnings": 0 },
       "artifacts": ["work/course-content.json", "work/extraction-report.txt"]
     },
     "draft": {
@@ -22,14 +23,16 @@
       "status": "done",
       "agent": "course-reviewer",
       "launches": 1,
-      "verdict": "REVISE",
-      "findings": { "major": 2, "minor": 1 },
+      "session": "ses_ee912de09ffeijuVYZjyNBHr64",
+      "verdict": "PASS",
+      "findings": { "blocker": 0, "major": 0, "minor": 2 },
       "artifacts": ["output/review.md"]
     },
     "revise": {
       "status": "done",
       "passes": 1,
-      "corrections": ["C1 (R1)", "C2 (R2)", "C3 (R3)"],
+      "corrections": ["C1 (R1, minor)", "C2 (R2, minor)"],
+      "blocker_major_corrections_required": 0,
       "artifacts": [
         "output/final/course-summary.md",
         "output/final/key-concepts.md",

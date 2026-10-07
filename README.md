@@ -63,6 +63,31 @@ opencode mcp list     # → ✓ pdf_extractor connected
 No loops: if issues remain after the single revision pass, they
 are documented honestly in the run report instead of re-running.
 
+## Web app (localhost)
+
+A local web version — upload a PDF in the browser and get the
+summary, key-concepts table, and Mermaid diagram:
+
+```powershell
+.venv\Scripts\python webapp\server.py      # → http://localhost:8000/
+.venv\Scripts\python webapp\smoke_test.py  # end-to-end check
+```
+
+- `webapp/server.py` — stdlib-only HTTP server (`GET /`,
+  `POST /generate`, `GET /health`), binds 127.0.0.1
+- `webapp/recap_core.py` — extraction (reuses the MCP server's
+  helpers, so results are identical) + deterministic recap
+  generator
+- `webapp/index.html` — upload UI: Summary / Key Concepts /
+  Diagram / Raw tabs with .md, .mmd and .json downloads
+- `webapp/smoke_test.py` — end-to-end smoke test
+
+**Important:** the web version is *deterministic and
+extractive* (templates + heuristics, no LLM) — it arranges the
+source's own headings and sentences. It does not replace the
+OpenCode pipeline, which produces the faithful LLM-authored,
+reviewer-checked recap.
+
 ## Sample run
 
 The bundled `input/course.pdf` (SPPU AI Unit 2 — Problem

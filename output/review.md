@@ -5,51 +5,45 @@
   - `output/draft/course-summary.md`
   - `output/draft/key-concepts.md`
   - `output/draft/concept-diagram.mmd`
-- **Reviewer:** `course-reviewer` sub-agent (launched exactly once, 2026-10-07)
+- **Reviewer:** `course-reviewer` sub-agent (launched exactly
+  once, 2026-10-07; child session `ses_ee912de09ffeijuVYZjyNBHr64`)
 
 ## Check results
 
-### FIDELITY — PASS (with minor note R3)
-Every module, definition, and claim in the summary and concepts
-table was traced page-by-page against the extraction: search
-definition and search-problem factors (p. 3); algorithm
-properties (p. 4); uninformed/informed definitions and
-algorithm lists (pp. 6–7); BFS/DFS/UCS definitions, data
-structures, advantages, disadvantages, worked examples
-(S→A→B→C→D→G→H→E→F→I→K; DFS backtracking at E), complexities,
-completeness, and optimality (pp. 8–19). Learning objectives
-are explicitly marked as implied by the section structure, not
-stated verbatim — permitted by the template. Glossary and
-self-check questions all trace to source pages.
+### FIDELITY — PASS (2 minor findings)
+Every module, definition, formula, and claim in the summary
+and concepts table was traced to the extraction: the A*
+formula f(n) = g(n) + h(n) and its working steps (pp. 1–2),
+the uninformed/informed comparison (p. 2), the state-space
+resource-allocation example (p. 2), the three learning
+paradigms (pp. 2–3), k-means quality inspection (p. 3), the
+k-NN vs k-means comparison (p. 3), and the regression load
+forecast (p. 3). Two minor wording/precision findings (R1,
+R2) — no hallucinated content.
 
-### COVERAGE — PASS
-The PDF outline contains only generic "Slide 1"–"Slide 19"
-markers. The draft derives 6 modules from the per-page text (as
-the template permits when the outline carries no real headings)
-and documents this in its fidelity note. The modules' slide
-ranges (1–3, 4, 5–7, 8–11, 12–16, 17–19) cover all 19 outline
-entries.
+### COVERAGE — PASS, no findings
+All 10 outline entries (Q1–Q10) appear as module sections,
+including the Q6 duplicate, which is represented exactly as
+the source states ("Same as Q4 — refer to Q4 for solution").
 
-### DIAGRAM — FAIL (2 major findings)
-- R1 (major): node set missing 3 key concepts from
-  `key-concepts.md` — completeness, optimality,
-  time-space-complexity.
-- R2 (major): extra nodes not present in `key-concepts.md`
-  (problem-solving, search-properties, greedy-search,
-  a-star-search); node ID `search-factors` does not match the
-  concept ID `search-problem-factors`.
+### DIAGRAM — PASS, no findings
+Valid Mermaid `flowchart TD`; 12 nodes (≤ 15); unique
+kebab-case node IDs; all 5 edges labeled; node set exactly
+matches `key-concepts.md` (12 concepts = 12 nodes).
 
-### FORMAT — PASS
-Section order, table columns (Concept | Definition | Source
-page(s) | Why it matters), page citations, and Mermaid
-`flowchart TD` syntax all conform to the templates.
+### FORMAT — PASS, no findings
+Summary sections appear in template order (overview,
+learning objectives, module-by-module recap, glossary,
+self-check questions); the concept table has all four
+required columns (Concept | Definition | Source page(s) |
+Why it matters); page citations are present for every
+module, concept, and glossary term.
 
 ## Findings table
 
-| ID | Severity | Area | Finding |
-| --- | --- | --- | --- |
-| R1 | Major | Diagram | Node set missing 3 key concepts (completeness, optimality, time-space-complexity) |
-| R2 | Major | Diagram | 4 extra nodes (problem-solving, search-properties, greedy-search, a-star-search); ID mismatch `search-factors` vs `search-problem-factors` |
-| R3 | Minor | Fidelity | BFS complexity wording interprets garbled source text ("b is a node at every state", "O(bd)") as branching factor / O(b^d); consistent with extraction report — no correction required, optional note |
+| ID | Severity | Location | Issue | Correction |
+| --- | --- | --- | --- | --- |
+| R1 | minor | course-summary.md §1 (overview) | Claims "Each question is self-contained," but the source states Q6 is a duplicate ("Same as Q4 — refer to Q4 for solution") | Soften the wording or note Q6 is an exception |
+| R2 | minor | key-concepts.md row supervised-learning | Source page(s) listed as "2–3"; the definition itself appears only on p. 2 (p. 3 merely calls k-NN a "Supervised algorithm") | Acceptable as-is, or narrow to p. 2 for precision |
 
-**VERDICT: REVISE**
+**VERDICT: PASS** — zero blocker and zero major findings.

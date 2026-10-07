@@ -1,24 +1,19 @@
 flowchart TD
-    problem-solving["Problem Solving (AI Unit II)"]
-    search["Search"]
-    search-factors["Search Problem Factors"]
-    search-properties["Properties of Search Algorithms"]
-    uninformed-search["Uninformed / Blind Search"]
-    informed-search["Informed / Heuristic Search"]
-    bfs["Breadth-First Search"]
-    dfs["Depth-First Search"]
-    ucs["Uniform-Cost Search"]
-    greedy-search["Greedy Search"]
-    a-star-search["A* Search"]
+    learning-through-problem-solving["Learning through Problem Solving"]
+    a-star-algorithm["A* Algorithm"]
+    heuristic-function["Heuristic h(n)"]
+    uninformed-search["Uninformed (Blind) Search"]
+    informed-search["Informed Search"]
+    state-space["State Space"]
+    supervised-learning["Supervised Learning"]
+    unsupervised-learning["Unsupervised Learning"]
+    reinforcement-learning["Reinforcement Learning"]
+    k-means-clustering["K-Means Clustering"]
+    k-nearest-neighbors["k-NN"]
+    regression["Regression"]
 
-    problem-solving -->|"solved by"| search
-    search -->|"defined by"| search-factors
-    search -->|"evaluated by"| search-properties
-    search -->|"divided into"| uninformed-search
-    search -->|"divided into"| informed-search
-    uninformed-search -->|"includes"| bfs
-    uninformed-search -->|"includes"| dfs
-    uninformed-search -->|"includes"| ucs
-    informed-search -->|"includes"| greedy-search
-    informed-search -->|"includes"| a-star-search
-    ucs -->|"equivalent to (same edge costs)"| bfs
+    a-star-algorithm -->|"uses"| heuristic-function
+    uninformed-search -->|"contrasted with"| informed-search
+    informed-search -->|"includes"| a-star-algorithm
+    supervised-learning -->|"includes"| k-nearest-neighbors
+    unsupervised-learning -->|"includes"| k-means-clustering

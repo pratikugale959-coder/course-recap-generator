@@ -11,3 +11,6 @@ Desktop.ini
 # Editor
 .vscode/
 .idea/
+
+# User input (course PDFs stay local)
+input/*.pdf

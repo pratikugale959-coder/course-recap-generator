@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Recap Generator — Web App</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esd.min.js"></script>
+<style>
+  :root { --ink:#1e293b; --muted:#64748b; --line:#e2e8f0; --accent:#4f46e5;
+          --bg:#f8fafc; --warn-bg:#fffbeb; --warn-line:#f59e0b; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  header { background:#fff; border-bottom:1px solid var(--line); padding:1.6rem 1.5rem 1.2rem; }
+  .wrap { max-width:940px; margin:0 auto; }
+  h1 { font-family:Georgia,"Times New Roman",serif; font-size:1.7rem; margin:0 0 .3rem; }
+  h2 { font-family:Georgia,serif; font-size:1.25rem; margin:1.8rem 0 .7rem;
+       border-bottom:2px solid var(--accent); padding-bottom:.25rem; }
+  h3 { font-size:1.02rem; margin:1.2rem 0 .4rem; }
+  .meta { color:var(--muted); font-size:.9rem; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px;
+          padding:1rem 1.2rem; margin:.8rem 0; }
+  #drop { border:2px dashed var(--line); border-radius:12px; padding:2.2rem 1.5rem;
+          text-align:center; cursor:pointer; transition:border-color .15s, background .15s; }
+  #drop:hover, #drop.over { border-color:var(--accent); background:#eef2ff; }
+  #drop .big { font-size:1.1rem; font-weight:600; }
+  button { background:var(--accent); color:#fff; border:0; border-radius:8px;
+           padding:.55rem 1.3rem; font-size:1rem; cursor:pointer; }
+  button:disabled { background:#a5b4fc; cursor:not-allowed; }
+  button.ghost { background:#fff; color:var(--accent); border:1px solid var(--accent); }
+  #status { margin:.8rem 0; font-weight:600; }
+  .banner { background:var(--warn-bg); border:1px solid var(--warn-line);
+            border-radius:10px; padding:.7rem 1rem; font-size:.9rem; margin:.8rem 0; }
+  .tabs { display:flex; gap:.4rem; margin:1.2rem 0 0; flex-wrap:wrap; }
+  .tabs button { background:#fff; color:var(--ink); border:1px solid var(--line);
+                 border-bottom:0; border-radius:8px 8px 0 0; padding:.4rem 1rem; }
+  .tabs button.active { background:#eef2ff; color:var(--accent); font-weight:700; }
+  .panel { display:none; border-top:1px solid var(--line); padding-top:1rem; }
+  .panel.active { display:block; }
+  details.card summary { cursor:pointer; font-weight:600; }
+  details.card summary:hover { color:var(--accent); }
+  .pages { float:right; font-weight:400; font-size:.82rem; color:var(--muted); }
+  ul { margin:.4rem 0 .6rem; padding-left:1.3rem; }
+  li { margin:.25rem 0; }
+  table { border-collapse:collapse; width:100%; background:#fff; font-size:.9rem;
+          border:1px solid var(--line); }
+  th,td { border:1px solid var(--line); padding:.45rem .55rem; text-align:left; vertical-align:top; }
+  th { background:#eef2ff; }
+  tbody tr:nth-child(even) { background:#f8fafc; }
+  td.concept { font-family:ui-monospace,Consolas,monospace; }
+  .mermaid { background:#fff; border:1px solid var(--line); border-radius:10px; padding:1rem; }
+  pre.raw { background:#0f172a; color:#e2e8f0; border-radius:10px; padding:1rem;
+            overflow:auto; max-height:420px; font-size:.82rem; }
+  .dl-row { display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0 1rem; }
+  footer { padding:1.4rem; text-align:center; color:var(--muted); font-size:.85rem; }
+  #result { display:none; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Course Recap Generator</h1>
+    <p class="meta">Upload a course PDF → get a summary, key-concepts table, and
+       a Mermaid concept diagram. Runs entirely on localhost.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div id="drop" role="button" tabindex="0" aria-label="Upload a PDF">
+      <div class="big">Drop a course PDF here</div>
+      <div class="meta">or click to browse — max 25 MB · processed on your machine,
+         nothing leaves localhost</div>
+      <input type="file" id="file" accept="application/pdf,.pdf" hidden>
+    </div>
+    <div style="text-align:center; margin-top:1rem;">
+      <button id="go" disabled>Generate recap</button>
+    </div>
+    <div id="status"></div>
+    <div class="banner">
+      <strong>Note:</strong> this web version generates an <em>extractive</em> draft
+      with templates and heuristics — it arranges the source's own headings and
+      sentences, without an LLM. For a faithful, LLM-authored recap with a
+      reviewer pass, run the OpenCode pipeline (course-recap skill +
+      course-reviewer sub-agent) on the same PDF.
+    </div>
+
+    <div id="result">
+      <div class="tabs">
+        <button data-tab="summary" class="active">Summary</button>
+        <button data-tab="concepts">Key Concepts</button>
+        <button data-tab="diagram">Diagram</button>
+        <button data-tab="raw">Raw &amp; Download</button>
+      </div>
+
+      <div class="panel active" id="tab-summary">
+        <h2 id="r-title">Recap</h2>
+        <p class="meta" id="r-meta"></p>
+        <div id="r-warnings"></div>
+        <h2>Course overview</h2>
+        <div class="card"><p id="r-overview"></p></div>
+        <h2>Learning objectives <small style="font-weight:400;color:var(--muted)">(implied by section titles)</small></h2>
+        <div class="card"><ol id="r-objectives"></ol></div>
+        <h2>Module-by-module recap</h2>
+        <div id="r-modules"></div>
+        <h2>Glossary</h2>
+        <table id="r-glossary">
+          <thead><tr><th>Term</th><th>Definition</th><th>Source page(s)</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <h2>Self-check questions</h2>
+        <div class="card"><ol id="r-selfcheck"></ol></div>
+      </div>
+
+      <div class="panel" id="tab-concepts">
+        <h2>Key concepts</h2>
+        <table id="r-concepts">
+          <thead><tr><th>Concept</th><th>Definition</th><th>Source page(s)</th><th>Why it matters</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="panel" id="tab-diagram">
+        <h2>Concept diagram</h2>
+        <pre class="mermaid" id="r-mermaid"></pre>
+        <p class="meta">Renders with Mermaid.js (CDN — requires internet).
+           Structural overview: outline entries chain with "next" edges;
+           nested entries link with "includes" edges.</p>
+        <h3>Raw diagram source (.mmd)</h3>
+        <pre class="raw" id="r-mmd"></pre>
+      </div>
+
+      <div class="panel" id="tab-raw">
+        <h2>Raw outputs &amp; downloads</h2>
+        <div class="dl-row">
+          <button class="ghost" id="dl-summary">Download summary (.md)</button>
+          <button class="ghost" id="dl-concepts">Download key concepts (.md)</button>
+          <button class="ghost" id="dl-diagram">Download diagram (.mmd)</button>
+          <button class="ghost" id="dl-json">Download extraction (.json)</button>
+        </div>
+        <h3>Extraction JSON (outline, metadata, page stats)</h3>
+        <pre class="raw" id="r-json"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Course Recap Generator web app · deterministic extractive generation (no LLM) ·
+  pypdf extraction shared with the pdf_extractor MCP server
+</footer>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+let current = null;
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                  .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+/* ---- upload handling ---- */
+const drop = $("drop"), fileInput = $("file"), go = $("go");
+let file = null;
+
+drop.addEventListener("click", () => fileInput.click());
+drop.addEventListener("keydown", (e) => { if (e.key === "Enter") fileInput.click(); });
+drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", (e) => {
+  e.preventDefault(); drop.classList.remove("over");
+  if (e.dataTransfer.files.length) setFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener("change", () => { if (fileInput.files.length) setFile(fileInput.files[0]); });
+
+function setFile(f) {
+  file = f;
+  drop.querySelector(".big").textContent = f.name + "  (" + (f.size / 1024).toFixed(0) + " KB)";
+  go.disabled = false;
+  $("status").textContent = "";
+}
+
+/* ---- generation ---- */
+go.addEventListener("click", async () => {
+  if (!file) return;
+  go.disabled = true;
+  $("status").textContent = "Extracting PDF and generating recap…";
+  $("result").style.display = "none";
+  try {
+    const res = await fetch("/generate", {
+      method: "POST",
+      body: file,
+      headers: { "X-File-Name": file.name },
+    });
+    const data = await res.json();
+    if (!res.ok || data.ok === false) {
+      $("status").textContent = "Error: " + (data.error || ("HTTP " + res.status));
+      return;
+    }
+    current = data;
+    render(data);
+    $("status").textContent =
+      "Done — " + data.concepts.length + " concepts, " + data.modules.length +
+      " modules from " + data.page_count + " pages.";
+  } catch (err) {
+    $("status").textContent = "Request failed: " + err.message;
+  } finally {
+    go.disabled = false;
+  }
+});
+
+/* ---- rendering ---- */
+function render(d) {
+  $("result").style.display = "block";
+  $("r-title").textContent = d.title;
+  $("r-meta").textContent =
+    "Source: " + d.filename + " · " + d.page_count + " pages · " +
+    d.total_chars.toLocaleString() + " chars · " + d.note;
+
+  $("r-warnings").innerHTML = d.warnings.length
+    ? '<div class="banner">⚠ ' + d.warnings.map(esc).join("<br>") + "</div>"
+    : "";
+
+  $("r-overview").textContent = d.overview;
+
+  $("r-objectives").innerHTML = d.objectives.map(o => "<li>" + esc(o) + "</li>").join("");
+
+  $("r-modules").innerHTML = d.modules.map((m, i) => {
+    const items = m.takeaways.length
+      ? "<ul>" + m.takeaways.map(t => "<li>" + esc(t) + "</li>").join("") + "</ul>"
+      : "<p class='meta'>(no extractable sentences on these pages)</p>";
+    return "<details class='card' open><summary>Module " + (i + 1) + ": " +
+           esc(m.title) + "<span class='pages'>pages " + esc(m.pages) +
+           "</span></summary>" + items + "</details>";
+  }).join("");
+
+  $("r-glossary").querySelector("tbody").innerHTML = d.glossary.map(g =>
+    "<tr><td>" + esc(g.term) + "</td><td>" + esc(g.definition) + "</td><td>" +
+    esc(g.pages) + "</td></tr>").join("");
+
+  $("r-selfcheck").innerHTML = d.self_check.map(q => "<li>" + esc(q) + "</li>").join("");
+
+  $("r-concepts").querySelector("tbody").innerHTML = d.concepts.map(c =>
+    "<tr><td class='concept'>" + esc(c.concept) + "</td><td>" + esc(c.definition) +
+    "</td><td>" + esc(c.pages) + "</td><td>" + esc(c.why) + "</td></tr>").join("");
+
+  $("r-mermaid").textContent = d.diagram;
+  $("r-mmd").textContent = d.diagram;
+  $("r-json").textContent = JSON.stringify(d.extraction, null, 2);
+
+  if (window.mermaid) { mermaid.initialize({ startOnLoad: false }); mermaid.run(); }
+}
+
+/* ---- tabs ---- */
+document.querySelectorAll(".tabs button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    $("tab-" + btn.dataset.tab).classList.add("active");
+    if (btn.dataset.tab === "diagram" && window.mermaid && current) {
+      $("r-mermaid").textContent = current.diagram;
+      mermaid.run();
+    }
+  });
+});
+
+/* ---- downloads ---- */
+function download(name, text) {
+  const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+$("dl-summary").addEventListener("click", () => {
+  if (!current) return;
+  const d = current;
+  let md = "# " + d.title + " — Course Recap (extractive draft)\n\n";
+  md += "Source: " + d.filename + " · " + d.page_count + " pages · " +
+        d.total_chars.toLocaleString() + " chars\n\n";
+  md += "## Overview\n\n" + d.overview + "\n\n";
+  md += "## Learning objectives (implied)\n\n" +
+        d.objectives.map(o => "- " + o).join("\n") + "\n\n";
+  md += "## Module-by-module recap\n\n";
+  d.modules.forEach((m, i) => {
+    md += "### Module " + (i + 1) + ": " + m.title + " (pages " + m.pages + ")\n\n";
+    md += m.takeaways.map(t => "- " + t).join("\n") + "\n\n";
+  });
+  md += "## Glossary\n\n| Term | Definition | Source page(s) |\n| --- | --- | --- |\n" +
+        d.glossary.map(g => "| " + g.term + " | " + g.definition + " | " + g.pages + " |").join("\n") + "\n\n";
+  md += "## Self-check questions\n\n" +
+        d.self_check.map((q, i) => (i + 1) + ". " + q).join("\n") + "\n";
+  download("course-summary.md", md);
+});
+
+$("dl-concepts").addEventListener("click", () => {
+  if (!current) return;
+  let md = "# Key Concepts — " + current.title + "\n\n";
+  md += "Source: " + current.filename + " (extractive draft, no LLM)\n\n";
+  md += "| Concept | Definition | Source page(s) | Why it matters |\n| --- | --- | --- | --- |\n" +
+        current.concepts.map(c => "| " + c.concept + " | " + c.definition + " | " +
+                                    c.pages + " | " + c.why + " |").join("\n") + "\n";
+  download("key-concepts.md", md);
+});
+
+$("dl-diagram").addEventListener("click", () => {
+  if (current) download("concept-diagram.mmd", current.diagram);
+});
+
+$("dl-json").addEventListener("click", () => {
+  if (current) download("extraction.json", JSON.stringify(current.extraction, null, 2));
+});
+
+if (window.mermaid) { mermaid.initialize({ startOnLoad: false }); }
+</script>
+</body>
+</html>

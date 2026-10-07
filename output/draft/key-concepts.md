@@ -1,17 +1,19 @@
-# Key Concepts — AI Unit 2 (Problem Solving)
+# Key Concepts — AI & ML Important Questions with Answers
 
 Source: `work/course-content.json` (extracted from input/course.pdf,
-"AI – Unit 2 (Problem Solving) - Notes", SPPU AI, 19 pages)
+"AI & ML Important Questions with Answers", 3 pages)
 
 | Concept | Definition | Source page(s) | Why it matters |
 | --- | --- | --- | --- |
-| search | A step-by-step procedure to solve a search problem in a given search space | 3 | Core abstraction of the unit |
-| search-problem-factors | Search space, start state, goal test, search tree, actions, transition model, path cost, solution, optimal solution | 3 | Defines what the agent must formulate before searching |
-| completeness | A search algorithm is complete if it guarantees to return a solution if at least any solution exists | 4 | Property used to evaluate search algorithms |
-| optimality | A solution is optimal if it is guaranteed to be the best (lowest path cost) among all other solutions | 4 | Property used to evaluate search algorithms |
-| time-space-complexity | Time complexity: measure of time for an algorithm to complete its task; space complexity: maximum storage space required at any point during the search | 4 | Properties used to compare search algorithms |
-| uninformed-search | Search with no domain knowledge (e.g., closeness or location of the goal); brute-force traversal that examines each node until the goal node is achieved; also called blind search | 6 | One of the two search-strategy families |
-| informed-search | Search that uses domain knowledge to guide the search and find solutions more efficiently than uninformed search; also called heuristic search | 7 | The second strategy family; solves more complex problems |
-| breadth-first-search | Breadthwise traversal from the root node, expanding all successors at the current level before the next level; FIFO queue; time O(b^d), space O(bd); complete; optimal if path cost is non-decreasing in depth | 8–11 | Detailed uninformed algorithm; guarantees the minimal-step solution |
-| depth-first-search | Recursive traversal that follows each path to its greatest depth node before moving to the next path; stack; low memory; time O(n^m); complete in finite state space; non-optimal | 12–16 | Detailed uninformed algorithm; memory-efficient but may loop |
-| uniform-cost-search | Search on weighted trees/graphs that expands nodes by path cost from the root using a priority queue; finds the lowest cumulative cost path; worst-case time O(b^(1+[C*/ε])); complete; always optimal | 17–19 | Detailed uninformed algorithm for weighted graphs; equivalent to BFS when all edge costs are equal |
+| learning-through-problem-solving | A process where knowledge is gained by actively finding solutions to problems rather than just memorizing theory; improves understanding and develops reasoning ability | 1 | The document's opening concept, illustrated by the robot pathfinding example |
+| a-star-algorithm | Popular pathfinding algorithm that finds the shortest path efficiently; formula f(n) = g(n) + h(n); working: start from the initial position, explore neighboring nodes, always choose the node with the smallest f(n), continue until the goal is reached | 1–2 | Used for efficient robot path planning (warehouse example); its core principle is Q5 |
+| heuristic-function | h(n): the estimated cost (heuristic) from the current node to the goal; A* ensures optimal and efficient pathfinding if h(n) is admissible | 1–2 | The guide that lets informed search explore fewer nodes than uninformed search |
+| uninformed-search | Blind search: explores the state space without any extra knowledge; explores more nodes (slow); examples BFS, DFS | 2 | One half of the Q3 comparison |
+| informed-search | Uses heuristics to guide the search; explores fewer nodes (fast); examples A*, Greedy Best-First | 2 | The other half of the Q3 comparison; more efficient than uninformed search |
+| state-space | The set of all possible states or configurations of a problem reachable from the initial state by applying operators; illustrated with 2 tasks × 2 machines (states S1, S2) | 2 | What search algorithms explore; basis of the resource-allocation example |
+| supervised-learning | Model learns from labeled data (input-output pairs); example: predicting house price | 2–3 | One of the three learning paradigms in Q7 |
+| unsupervised-learning | Model finds patterns in unlabeled data; example: customer segmentation | 2–3 | The paradigm behind k-means (Q8, Q9) |
+| reinforcement-learning | Agent learns by interacting with the environment and receiving rewards/penalties; example: a robot learning to navigate a maze | 3 | The third learning paradigm in Q7 |
+| k-means-clustering | Unsupervised clustering algorithm that groups similar items by minimizing distance from centroids; needs iterative training; in manufacturing, groups products by weight, size, and defect count into good / minor-defect / major-defect clusters | 3 | Helps the quality team focus on defective products quickly |
+| k-nearest-neighbors | Supervised algorithm that assigns a label based on nearest neighbors; used for classification/regression; lazy learner (no explicit training); use case: handwriting recognition | 3 | Contrasted with k-means in Q9 |
+| regression | Predicts continuous values based on historical data; example model: Load = a + b1(Temperature) + b2(Hour) + b3(Day) | 3 | Forecasts electricity load (MW) so power companies can plan generation schedules and avoid shortages |

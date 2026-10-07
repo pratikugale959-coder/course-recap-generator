@@ -1,61 +1,41 @@
 {
   "file": "C:\\Users\\Sarthak\\course-recap-generator\\input\\course.pdf",
-  "page_count": 19,
+  "page_count": 3,
   "metadata": {
-    "creator": "KSKA-PDFs v0.38.0",
-    "keywords": "SPPU, Computer Engineering, comp, third year, te, semester 6, sem-6, 2019 pattern, sppu 2019 pattern, te 2019 pattern, Artificial Intelligence, AI, Large Language Models, LLMs, sppu ai, sppu ai te, Solving Problems by Searching, Problem-Solving Agents, Example Problems, Search Algorithms, Uninformed Search Strategies, Informed (Heuristic) Search Strategies, Heuristic Functions, Search in Complex Environments, Local Search and Optimization Problems,",
-    "author": "SPPU-TE-COMP-CONTENT – KSKA Git",
-    "producer": "KSKA-PDFs v0.38.0",
-    "subject": "AI – Unit 2 (Problem Solving) - Notes",
-    "title": "AI – Unit 2 (Problem Solving) - Notes",
-    "trapped": "/False",
-    "creationdate": "D:20250609091838+00'00'",
-    "moddate": "D:20250609091838+00'00'"
+    "author": "python-docx",
+    "creator": "Microsoft Word",
+    "creationdate": "D:20250911181544+00'00'",
+    "moddate": "D:20250911181544+00'00'"
   },
-  "total_chars": 8386,
-  "warnings": [
-    "page 2: little or no extractable text (likely image-only/scanned)"
-  ],
+  "total_chars": 4564,
+  "warnings": [],
   "pages": [
-    { "page": 1, "char_count": 20, "text": "UNIT II\nIntroduction" },
-    { "page": 2, "char_count": 8, "text": "Contents\n", "warning": "page 2: little or no extractable text (likely image-only/scanned)" },
-    { "page": 3, "char_count": 1053, "text": "Problem Solving \nSearch: Searchingis a step by step procedure to solve a search-problem in a given search space. A \nsearch problem can have three main factors:\n        Search Space: Search space represents a set of possible solutions, which a system may have.\n        Start State: It is a state from where agent begins the search.\n        Goal test: It is a function which observe the current state and returns whether the goal state is     \n                        achieved or not.\nSearch tree: A tree representation of search problem is called Search tree. The root of the search tree \nis the root node which is corresponding to the initial state.\nActions: It gives the description of all the available actions to the agent.\nTransition model: A description of what each action do, can be represented as a transition model.\nPath Cost: It is a function which assigns a numeric cost to each path.\nSolution: It is an action sequence which leads from the start node to the goal node.\nOptimal Solution: If a solution has the lowest cost among all solutions.\n " },
-    { "page": 4, "char_count": 596, "text": "Properties of Search Algorithms:\nCompleteness: A search algorithm is said to be complete if it guarantees to return a \nsolution if at least any solution exists for any random input.\nOptimality: If a solution found for an algorithm is guaranteed to be the best solution \n(lowest path cost) among all other solutions, then such a solution for is said to be an \noptimal solution.\nTime Complexity: Time complexity is a measure of time for an algorithm to complete \nits task.\nSpace Complexity: It is the maximum storage space required at any point during the \nsearch, as the complexity of the problem.\n " },
-    { "page": 5, "char_count": 26, "text": "Types of search algorithms\n" },
-    { "page": 6, "char_count": 713, "text": "Types of search algorithms\nUninformed/Blind Search:\nThe uninformed search does not contain any domain knowledge such as closeness, the \nlocation of the goal. It operates in a brute-force way as it only includes information about how \nto traverse the tree and how to identify leaf and goal nodes. Uninformed search applies a way \nin which search tree is searched without any information about the search space like initial \nstate operators and test for the goal, so it is also called blind search.It examines each node of \nthe tree until it achieves the goal node.\n1)    Breadth-first search\n2)    Uniform cost search\n3)    Depth-first search\n4)    Iterative deepening depth-first search\n5)    Bidirectional Search\n " },
-    { "page": 7, "char_count": 594, "text": "Types of search algorithms\nInformed Search\nInformed search algorithms use domain knowledge. In an informed \nsearch, problem information is available which can guide the search. \nInformed search strategies can find a solution more efficiently than an \nuninformed search strategy. Informed search is also called Heuristic \nsearch.\nA heuristic is a way which might not always be guaranteed for best \nsolutions but guaranteed to find a good solution in reasonable time. \nInformed search can solve much complex problem which could not be \nsolved in another way.\n1)    Greedy Search\n2)    A* Search\n " },
-    { "page": 8, "char_count": 519, "text": "Breadth-first Search:\nl Breadth-first search is the most common search strategy for traversing a tree or graph.\nl This algorithm searches breadthwise in a tree or graph, so it is called breadth-first \nsearch.\nl BFS algorithm starts searching from the root node of the tree and expands all successor \nnode at the current level before moving to nodes of next level.\nl The breadth-first search algorithm is an example of a general-graph search algorithm.\nl Breadth-first search implemented using FIFO queue data structure.\n " },
-    { "page": 9, "char_count": 441, "text": "Breadth-first Search:\nl Advantages:\n1. BFS will provide a solution if any solution exists.\n2. If there are more than one solutions for a given problem, then BFS will provide the \nminimal solution which requires the least number of steps.\nl. Disadvantages:\n1. It requires lots of memory since each level of the tree must be saved into memory to \nexpand the next level.\n2. BFS needs lots of time if the solution is far away from the root node.\n " },
-    { "page": 10, "char_count": 321, "text": "Breadth-first Search:\nl Example: the traversing of \nthe tree using BFS \nalgorithm from the root \nnode S to goal node K. BFS \nsearch algorithm traverse in \nlayers, so it will follow the \npath which is shown by the \ndotted arrow, and the \ntraversed path will be: \nl S--->A--->B---->C---\n>D---->G--->H--->E----\n>F---->I---->K  \n \n" },
-    { "page": 11, "char_count": 609, "text": "Breadth-first Search:\nl Time Complexity: Time Complexity of BFS algorithm can be obtained by the number \nof nodes traversed in BFS until the shallowest Node. \nl Where the d= depth of shallowest solution and b is a node at every state.\nl T (b) = 1+b2+b3+.......+ bd= O (bd)\nl Space Complexity: Space complexity of BFS algorithm is given by the Memory size of \nfrontier which is O(bd).\nl Completeness: BFS is complete, which means if the shallowest goal node is at some \nfinite depth, then BFS will find a solution.\nl Optimality: BFS is optimal if path cost is a non-decreasing function of the depth of the \nnode.  \n " },
-    { "page": 12, "char_count": 395, "text": "Depth-first Search\nl Depth-first search isa recursive algorithm for traversing a tree or graph data structure.\nl It is called the depth-first search because it starts from the root node and follows each \npath to its greatest depth node before moving to the next path.\nl DFS uses a stack data structure for its implementation.\nl The process of the DFS algorithm is similar to the BFS algorithm.\nl   \n " },
-    { "page": 13, "char_count": 490, "text": "Depth-first Search\nl Advantage:\n1. DFS requires very less memory as it only needs to store a stack of the nodes on the \npath from root node to the current node.\n2. It takes less time to reach to the goal node than BFS algorithm (if it traverses in the \nright path).\nl. Disadvantage:\n1. There is the possibility that many states keep re-occurring, and there is no guarantee of \nfinding the solution.\n2. DFS algorithm goes for deep down searching and sometime it may go to the infinite \nloop.\n " },
-    { "page": 14, "char_count": 479, "text": "Depth-first Search\nl Example:\nl In the below search tree, we have shown the flow of depth-first search, and it will \nfollow the order as:\nl Root node--->Left node ----> right node.\nl It will start searching from root node S, and traverse A, then B, then D and E, after \ntraversing E, it will backtrack the tree as E has no other successor and still goal node is \nnot found. After backtracking it will traverse node C and then G, and here it will \nterminate as it found goal node. \n " },
-    { "page": 15, "char_count": 155, "text": "Depth-first Search\nl Completeness: DFS search \nalgorithm is complete within finite \nstate space as it will expand every \nnode within a limited search tree." },
-    { "page": 16, "char_count": 409, "text": "Depth-first Search\nl Time Complexity: Time complexity of DFS will be equivalent to the node traversed \nby the algorithm. It is given by:\nl T(n)= 1+ n2+ n3 +.........+ nm=O(nm)\nl Where, m= maximum depth of any node and this can be much larger than d \n(Shallowest solution depth)\nl Optimal: DFS search algorithm is non-optimal, as it may generate a large number of \nsteps or high cost to reach to the goal node.\n" },
-    { "page": 17, "char_count": 726, "text": "Uniform-cost Search Algorithm:\n● Uniform-cost search is a searching algorithm used for traversing a weighted tree or \ngraph. \n● This algorithm comes into play when a different cost is available for each edge. \n● The primary goal of the uniform-cost search is to find a path to the goal node which \nhas the lowest cumulative cost. \n● Uniform-cost search expands nodes according to their path costs form the root node. \n● It can be used to solve any graph/tree where the optimal cost is in demand. \n● A uniform-cost search algorithm is implemented by the priority queue. \n● It gives maximum priority to the lowest cumulative cost. \n● Uniform cost search is equivalent to BFS algorithm if the path cost of all edges is the \nsame.\n " },
-    { "page": 18, "char_count": 313, "text": "Uniform-cost Search:\n● Advantages:\nUniform cost search is optimal \nbecause at every state the path \nwith the least cost is chosen.\n● Disadvantages:\nIt does not care about the number \nof steps involve in searching and \nonly concerned about path cost. \nDue to which this algorithm may \nbe stuck in an infinite loop.\n" },
-    { "page": 19, "char_count": 519, "text": "Uniform-cost Search:\n● Completeness:\nUniform-cost search is complete, such as if there is a solution, UCS will find it.\n● Time Complexity:\nLet C* is Cost of the optimal solution, and ε is each step to get closer to the goal node. \nThen the number of steps is = C*/ε+1. \nHere we have taken +1, as we start from state 0 and end to C*/ε.\n           The worst-case time complexity of Uniform-cost search isO(b1 + [C*/ε])\n● Optimal: Uniform-cost search is always optimal as it only selects a path with the \nlowest path cost.\n" }
+    {
+      "page": 1,
+      "char_count": 1376,
+      "text": "AI & ML Important Questions with \nAnswers \nQ1) Explain Learning through Problem Solving with Example \nLearning through problem solving is a process where knowledge is gained by actively \nfinding solutions to problems rather than just memorizing theory. \nIt improves understanding and develops reasoning ability. \n \nExample: \nSuppose a robot has to find the shortest path to a destination: \n- First attempt: It tries random paths and reaches late. \n- Learning: It remembers which routes were blocked. \n- Second attempt: It avoids those blocked paths and reaches faster. \n \nThis way, the robot learns from experience and improves over time. \nQ2) Describe how A Algorithm is used for Efficient Robot Path Planning \nThe A* (A-star) algorithm is a popular pathfinding algorithm used for robots because it \nfinds the shortest path efficiently. \n \nFormula: \n  f(n) = g(n) + h(n) \n- g(n) → Cost from start node to current node \n- h(n) → Estimated cost (heuristic) from current node to goal \n \nWorking: \n1. Start from initial position. \n2. Explore neighboring nodes. \n3. Always choose the node with smallest f(n). \n4. Continue until goal is reached. \n \nExample: \nA robot in a warehouse uses A* to move from entry point to storage rack. \n- g(n) = distance travelled so far. \n- h(n) = straight-line distance to goal. \nThis way robot avoids unnecessary nodes and reaches in shortest time. "
+    },
+    {
+      "page": 2,
+      "char_count": 1730,
+      "text": "Q3) Fundamental Difference between Uninformed and Informed Search \nAlgorithms \nUninformed search (blind search) explores the state space without any extra knowledge \nwhereas informed search uses heuristics to guide the search. \n \nComparison: \n- Knowledge Used: Uninformed uses no extra info, Informed uses heuristics. \n- Efficiency: Uninformed explores more nodes (slow), Informed explores fewer nodes (fast). \n- Examples: BFS, DFS (Uninformed) vs A*, Greedy Best-First (Informed). \nQ4) What is a State Space in AI Problem Solving? Illustrate with a Resource \nAllocation Example \nState Space: The set of all possible states or configurations of a problem that can be reached \nfrom the initial state by applying operators. \n \nExample (Resource Allocation): \nSuppose there are 2 tasks (T1, T2) and 2 machines (M1, M2). \nPossible states (allocations): \n- S1: (T1 → M1, T2 → M2) \n- S2: (T1 → M2, T2 → M1) \n \nState space = {S1, S2}. Algorithm explores these states to find best allocation (e.g., minimum \nprocessing time). \nQ5) Explain the Core Principle of the A* Algorithm \nThe core principle of A* is to expand the node that has the lowest estimated total cost: \n \nf(n) = g(n) + h(n) \n \n- g(n): Actual cost from start. \n- h(n): Heuristic estimate to goal. \nThis ensures optimal and efficient pathfinding if h(n) is admissible. \nQ6) What is a State Space in AI Problem Solving? Illustrate with a Resource \nAllocation Example \nSame as Q4 — refer to Q4 for solution. \nQ7) Explain Supervised, Unsupervised, and Reinforcement Learning \nSupervised Learning: Model learns from labeled data (input-output pairs). Example: Predict \nhouse price. \nUnsupervised Learning: Model finds patterns in unlabeled data. Example: Customer \nsegmentation. "
+    },
+    {
+      "page": 3,
+      "char_count": 1458,
+      "text": "Reinforcement Learning: Agent learns by interacting with environment and receiving \nrewards/penalties. Example: Robot learning to navigate a maze. \nQ8) How K-Means Clustering Helps in Grouping Products for Quality Inspection \nK-means is an unsupervised clustering algorithm that groups similar items together. \n \nIn Manufacturing: \n- Input features: weight, size, defect count. \n- Algorithm groups products into k clusters: \n  Cluster 1: Good Quality \n  Cluster 2: Minor Defects \n  Cluster 3: Major Defects \n \nThis helps the quality team focus on defective products quickly. \nQ9) Compare k-NN and k-Means \nk-NN (k-Nearest Neighbors): Supervised algorithm, assigns label based on nearest \nneighbors, used for classification/regression. \nk-Means: Unsupervised algorithm, divides data into k clusters by minimizing distance from \ncentroids, used for clustering. \nTraining: k-NN is lazy learner (no explicit training), k-Means needs iterative training. \nUse Case: k-NN → Handwriting recognition, k-Means → Market segmentation. \nQ10) Explain How Regression can be Used to Forecast Electricity Load Demand \nRegression is used to predict continuous values based on historical data. \n \nExample: \n- Inputs: Hour of day, temperature, day type (weekday/holiday). \n- Output: Predicted electricity load (MW). \n \nModel learns relationship: \nLoad = a + b1(Temperature) + b2(Hour) + b3(Day) \nThis forecast helps power companies plan generation schedules and avoid shortages. "
+    }
   ],
   "outline": [
-    { "title": "Slide 1", "page": 1, "depth": 0 },
-    { "title": "Slide 2", "page": 2, "depth": 0 },
-    { "title": "Slide 3", "page": 3, "depth": 0 },
-    { "title": "Slide 4", "page": 4, "depth": 0 },
-    { "title": "Slide 5", "page": 5, "depth": 0 },
-    { "title": "Slide 6", "page": 6, "depth": 0 },
-    { "title": "Slide 7", "page": 7, "depth": 0 },
-    { "title": "Slide 8", "page": 8, "depth": 0 },
-    { "title": "Slide 9", "page": 9, "depth": 0 },
-    { "title": "Slide 10", "page": 10, "depth": 0 },
-    { "title": "Slide 11", "page": 11, "depth": 0 },
-    { "title": "Slide 12", "page": 12, "depth": 0 },
-    { "title": "Slide 13", "page": 13, "depth": 0 },
-    { "title": "Slide 14", "page": 14, "depth": 0 },
-    { "title": "Slide 15", "page": 15, "depth": 0 },
-    { "title": "Slide 16", "page": 16, "depth": 0 },
-    { "title": "Slide 17", "page": 17, "depth": 0 },
-    { "title": "Slide 18", "page": 18, "depth": 0 },
-    { "title": "Slide 19", "page": 19, "depth": 0 }
+    { "title": "Q1) Explain Learning through Problem Solving with Example", "page": 1, "depth": 0 },
+    { "title": "Q2) Describe how A Algorithm is used for Efficient Robot Path Planning", "page": 1, "depth": 0 },
+    { "title": "Q3) Fundamental Difference between Uninformed and Informed Search Algorithms", "page": 2, "depth": 0 },
+    { "title": "Q4) What is a State Space in AI Problem Solving? Illustrate with a Resource Allocation Example", "page": 2, "depth": 0 },
+    { "title": "Q5) Explain the Core Principle of the A* Algorithm", "page": 2, "depth": 0 },
+    { "title": "Q6) What is a State Space in AI Problem Solving? Illustrate with a Resource Allocation Example", "page": 2, "depth": 0 },
+    { "title": "Q7) Explain Supervised, Unsupervised, and Reinforcement Learning", "page": 2, "depth": 0 },
+    { "title": "Q8) How K-Means Clustering Helps in Grouping Products for Quality Inspection", "page": 3, "depth": 0 },
+    { "title": "Q9) Compare k-NN and k-Means", "page": 3, "depth": 0 },
+    { "title": "Q10) Explain How Regression can be Used to Forecast Electricity Load Demand", "page": 3, "depth": 0 }
   ]
 }
